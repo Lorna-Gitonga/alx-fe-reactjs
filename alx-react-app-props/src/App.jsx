@@ -6,8 +6,10 @@ function App() {
 
   return (
     <UserContext.Provider value={userData}>
-      <ProfilePage />
+      <ProfilePage userData={userData} />
     </UserContext.Provider>
   );
 }
+
 export default App;
+;
