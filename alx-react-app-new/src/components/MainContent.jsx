@@ -4,12 +4,11 @@ function MainContent() {
       style={{
         padding: '20px',
         backgroundColor: '#f4f4f4',
-        minHeight: '200px'
+        fontSize: '16px'
       }}
     >
-      <p style={{ fontSize: '16px', lineHeight: '1.6' }}>
-        I love visiting cities around the world. Each city has its own culture,
-        food, and history.
+      <p style={{ fontStyle: 'italic' }}>
+        I love to visit New York, Paris, and Tokyo.
       </p>
     </main>
   );
