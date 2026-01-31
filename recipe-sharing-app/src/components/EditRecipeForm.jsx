@@ -6,9 +6,19 @@ const EditRecipeForm = ({ recipe, onFinish }) => {
   const [title, setTitle] = useState(recipe.title);
   const [description, setDescription] = useState(recipe.description);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    // Prevent page reload
+    event.preventDefault();
+
+    if (!title || !description) {
+      alert('Please fill out all fields');
+      return;
+    }
+
+    // Update recipe in Zustand store
     updateRecipe({ id: recipe.id, title, description });
+
+    // Call callback to finish editing (hide form)
     onFinish();
   };
 
