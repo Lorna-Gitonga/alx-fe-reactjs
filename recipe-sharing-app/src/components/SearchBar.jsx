@@ -1,4 +1,3 @@
-import React from 'react';
 import { useRecipeStore } from './recipeStore';
 
 const SearchBar = () => {
@@ -11,12 +10,7 @@ const SearchBar = () => {
       placeholder="Search recipes..."
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
-      style={{
-        padding: '8px',
-        width: '300px',
-        marginBottom: '20px',
-        fontSize: '16px',
-      }}
+      style={{ padding: '8px', width: '300px', marginBottom: '20px' }}
     />
   );
 };
