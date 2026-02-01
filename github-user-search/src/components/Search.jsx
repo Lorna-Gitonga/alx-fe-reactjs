@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { fetchUserData } from '../services/';
+import { fetchUserData } from '../services/githubService';
 
 export default function Search() {
   const [username, setUsername] = useState('');
@@ -19,7 +19,7 @@ export default function Search() {
       const data = await fetchUserData(username);
       setUserData(data);
     } catch (err) {
-      setError("Looks like we can't find the user");
+      setError("Looks like we cant find the user"); // <- this is the message you need
     } finally {
       setLoading(false);
     }
@@ -39,7 +39,7 @@ export default function Search() {
       </form>
 
       {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+      {error && <p>{error}</p>} {/* <- this ensures the message is displayed */}
       {userData && (
         <div className="user-card">
           <img src={userData.avatar_url} alt={userData.login} width={100} />
