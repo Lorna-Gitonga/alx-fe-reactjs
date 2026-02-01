@@ -1,54 +1,93 @@
 import { useState } from 'react';
-import { fetchUserData } from '../services/githubService';
+import { fetchAdvancedUsers } from '../services/githubService';
 
 export default function Search() {
   const [username, setUsername] = useState('');
-  const [userData, setUserData] = useState(null);
+  const [location, setLocation] = useState('');
+  const [minRepos, setMinRepos] = useState('');
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!username) return;
+
+    if (!username && !location && !minRepos) {
+      setError('Please enter at least one search criteria');
+      return;
+    }
 
     setLoading(true);
     setError('');
-    setUserData(null);
+    setUsers([]);
 
     try {
-      const data = await fetchUserData(username);
-      setUserData(data);
+      const data = await fetchAdvancedUsers({ username, location, minRepos });
+      if (data.items.length === 0) {
+        setError("Looks like we can't find any users matching the criteria");
+      } else {
+        setUsers(data.items);
+      }
     } catch (err) {
-      setError("Looks like we cant find the user"); // <- this is the message you need
+      setError('Error fetching users. Try again later.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="search-container">
-      <form onSubmit={handleSubmit}>
+    <div className="max-w-3xl mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">GitHub User Search</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-2 mb-4">
         <input
           type="text"
-          placeholder="Enter GitHub username"
+          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="input"
+          className="border rounded p-2 flex-1"
         />
-        <button type="submit" className="btn">Search</button>
+        <input
+          type="text"
+          placeholder="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          className="border rounded p-2 flex-1"
+        />
+        <input
+          type="number"
+          placeholder="Min Repos"
+          value={minRepos}
+          onChange={(e) => setMinRepos(e.target.value)}
+          className="border rounded p-2 w-32"
+        />
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+          Search
+        </button>
       </form>
 
       {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>} {/* <- this ensures the message is displayed */}
-      {userData && (
-        <div className="user-card">
-          <img src={userData.avatar_url} alt={userData.login} width={100} />
-          <h3>{userData.name || userData.login}</h3>
-          <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
-            View Profile
-          </a>
-        </div>
-      )}
+      {error && <p className="text-red-500">{error}</p>}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {users.map((user) => (
+          <div key={user.id} className="border rounded p-4 flex items-center gap-4">
+            <img src={user.avatar_url} alt={user.login} className="w-16 h-16 rounded-full" />
+            <div>
+              <h3 className="font-bold">{user.login}</h3>
+              {user.location && <p>Location: {user.location}</p>}
+              {user.public_repos !== undefined && <p>Repos: {user.public_repos}</p>}
+              <a
+                href={user.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 underline"
+              >
+                View Profile
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
