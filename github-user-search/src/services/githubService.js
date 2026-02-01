@@ -1,12 +1,22 @@
-import axios from 'axios';
+export async function fetchUserData(
+  { username, location, minRepos },
+  page = 1
+) {
+  let query = "";
 
-export const fetchAdvancedUsers = async ({ username, location, minRepos }) => {
-  let query = '';
-
-  if (username) query += `${username} in:login `;
+  if (username) query += `${username} `;
   if (location) query += `location:${location} `;
   if (minRepos) query += `repos:>=${minRepos} `;
 
-  const response = await axios.get(`https://api.github.com/search/users?q=${encodeURIComponent(query)}&per_page=20`);
-  return response.data;
-};
+  const response = await fetch(
+    `https://api.github.com/search/users?q=${encodeURIComponent(
+      query
+    )}&page=${page}&per_page=6`
+  );
+
+  if (!response.ok) {
+    throw new Error("Search failed");
+  }
+
+  return response.json();
+}
