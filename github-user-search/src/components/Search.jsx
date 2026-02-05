@@ -1,29 +1,52 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { fetchUserData } from "../services/githubService";
 
 function Search() {
-  const [query, setQuery] = useState("");
-  const [users, setUsers] = useState([]);
+  const [username, setUsername] = useState("");
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSearch = async () => {
-    const data = await fetchUserData({
-      username: query,
-    });
-    setUsers(data.items);
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // <-- preventDefault MUST exist
+    setLoading(true);
+    setError("");
+    setUser(null);
+
+    try {
+      const data = await fetchUserData(username);
+      setUser(data);
+    } catch (e) {
+      setError("Looks like we cant find the user");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div>
-      <input
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search GitHub users"
-      />
-      <button onClick={handleSearch}>Search</button>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Search GitHub user"
+        />
+        <button type="submit">Search</button>
+      </form>
 
-      {users.map((user) => (
-        <p key={user.id}>{user.login}</p>
-      ))}
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+
+      {user && (
+        <div>
+          <img src={user.avatar_url} alt={user.login} width="100" />
+          <h3>{user.login}</h3>
+          <a href={user.html_url} target="_blank" rel="noreferrer">
+            GitHub Profile
+          </a>
+        </div>
+      )}
     </div>
   );
 }
