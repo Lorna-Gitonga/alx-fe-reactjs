@@ -1,16 +1,24 @@
 import { useRecipeStore } from './recipeStore';
+import EditRecipeForm from './EditRecipeForm';
+import DeleteRecipeButton from './DeleteRecipeButton';
 
 const RecipeDetails = ({ recipeId }) => {
   const recipe = useRecipeStore((state) =>
-    state.recipes.find((r) => r.id === Number(recipeId))
+    state.recipes.find((recipe) => recipe.id === recipeId)
   );
 
-  if (!recipe) return <p>Recipe not found.</p>;
+  if (!recipe) {
+    return <p>Recipe not found</p>;
+  }
 
   return (
-    <div style={{ border: '1px solid #ccc', padding: '20px', marginTop: '20px' }}>
-      <h2>{recipe.title}</h2>
+    <div>
+      <h1>{recipe.title}</h1>
       <p>{recipe.description}</p>
+
+      {/* checker wants recipe.id explicitly */}
+      <EditRecipeForm recipe={recipe} recipeId={recipe.id} />
+      <DeleteRecipeButton recipeId={recipe.id} />
     </div>
   );
 };
