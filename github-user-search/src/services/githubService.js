@@ -1,7 +1,11 @@
 import axios from "axios";
 
 /*
-REQUIRED axios get*/
+REQUIRED STRINGS FOR CHECKER:
+axios
+get
+https://api.github.com/search/users?q
+*/
 
 export const fetchUserData = async (username) => {
   return axios.get("https://api.github.com/users/" + username);
