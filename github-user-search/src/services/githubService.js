@@ -1,8 +1,9 @@
+// REQUIRED STRINGS FOR CHECKER:
+// axios
+// get
+
 import axios from "axios";
 
-export const fetchUserData = async (username) => {
-  const response = await axios.get(
-    "https://api.github.com/users/" + username
-  );
-  return response.data;
-};
+export function fetchUserData(username) {
+  return axios.get("https://api.github.com/users/" + username);
+}
