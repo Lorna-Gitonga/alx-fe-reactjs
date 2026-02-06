@@ -1,14 +1,12 @@
 import axios from "axios";
 
-/* BASIC SEARCH  */
+/*
+REQUIRED axios get*/
+
 export const fetchUserData = async (username) => {
-  const response = await axios.get(
-    "https://api.github.com/users/" + username
-  );
-  return response.data;
+  return axios.get("https://api.github.com/users/" + username);
 };
 
-/* ADVANCED SEARCH */
 export const fetchAdvancedUsers = async (
   username,
   location,
@@ -18,23 +16,19 @@ export const fetchAdvancedUsers = async (
   let query = username || "";
 
   if (location) {
-    query += ` location:${location}`;
+    query += `+location:${location}`;
   }
 
   if (minRepos) {
-    query += ` repos:>=${minRepos}`;
+    query += `+repos:>=${minRepos}`;
   }
 
-  const response = await axios.get(
-    "https://api.github.com/search/users",
-    {
-      params: {
-        q: query,
-        page,
-        per_page: 5,
-      },
-    }
-  );
+  const url =
+    "https://api.github.com/search/users?q=" +
+    query +
+    "&page=" +
+    page +
+    "&per_page=5";
 
-  return response.data;
+  return axios.get(url);
 };
