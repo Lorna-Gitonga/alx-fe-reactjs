@@ -3,24 +3,32 @@
     "id": 1,
     "title": "Spaghetti Carbonara",
     "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://via.placeholder.com/150",
+    "ingredients": ["200g spaghetti", "100g pancetta", "2 eggs", "50g Parmesan", "Black pepper"],
+    "instructions": ["Boil spaghetti", "Fry pancetta", "Mix eggs and cheese", "Combine everything"]
   },
   {
     "id": 2,
     "title": "Chicken Tikka Masala",
     "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://via.placeholder.com/150",
+    "ingredients": ["500g chicken", "200g yogurt", "100g butter", "200g tomatoes", "1 onion"],
+    "instructions": ["Marinate chicken in yogurt", "Cook chicken in butter", "Add tomatoes and onions", "Simmer until done"]
   },
   {
     "id": 3,
     "title": "Vegetable Stir Fry",
     "summary": "A quick and healthy vegetable stir fry with tofu and soy sauce.",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://via.placeholder.com/150",   
+    "ingredients": ["200g tofu", "1 bell pepper", "1 carrot", "100g broccoli", "2 tbsp soy sauce"],
+    "instructions": ["Cut vegetables and tofu", "Stir fry tofu until golden", "Add vegetables and soy sauce", "Stir until vegetables are tender"]
   },
   {
     "id": 4,
     "title": "Beef Tacos",
     "summary": "Soft tortillas filled with seasoned ground beef, lettuce, cheese, and salsa.",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://via.placeholder.com/150",
+    "ingredients": ["200g ground beef", "4 tortillas", "50g lettuce", "50g cheese", "Salsa"],
+    "instructions": ["Cook ground beef with seasoning", "Warm tortillas", "Assemble tacos with beef, lettuce, cheese, and salsa"]
   }
 ]
