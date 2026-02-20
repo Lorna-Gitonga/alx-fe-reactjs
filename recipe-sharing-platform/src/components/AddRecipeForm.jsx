@@ -45,11 +45,12 @@ function AddRecipeForm() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-lg rounded-xl p-8 w-full max-w-lg"
-      >
+  <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4 md:p-8">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white shadow-lg rounded-xl p-6 md:p-8 w-full max-w-md md:max-w-lg"
+    >
+
         <h2 className="text-2xl font-bold mb-6 text-center">
           Add New Recipe
         </h2>
