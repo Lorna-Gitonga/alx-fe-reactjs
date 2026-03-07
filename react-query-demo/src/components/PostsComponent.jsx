@@ -14,7 +14,12 @@ function PostsComponent() {
 
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ['posts'],
-    queryFn: fetchPosts
+    queryFn: fetchPosts,
+
+    staleTime: 1000 * 60, // 1 minute
+    cacheTime: 1000 * 60 * 5, // 5 minutes
+    refetchOnWindowFocus: true,
+    keepPreviousData: true
   })
 
   if (isLoading) {
@@ -33,7 +38,7 @@ function PostsComponent() {
         Refetch Posts
       </button>
 
-      {data.slice(0, 10).map((post) => (
+      {data.slice(0,10).map((post) => (
         <div key={post.id} style={{border:"1px solid #ccc", padding:"10px", margin:"10px"}}>
           <h3>{post.title}</h3>
           <p>{post.body}</p>
